@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mbunayd4.vDespLiegaDatos"
+             Title="Datos del contacto"
+             Padding="20,40,20,20">
+    <ScrollView>
+        <VerticalStackLayout Spacing="12">
+            <Label Text="DATOS DEL CONTACTO"
+                   Style="{StaticResource TextoExplicito}"
+                   FontAttributes="Bold"
+                   FontSize="20"
+                   HorizontalOptions="Center" />
+
+            <Label x:Name="lblTipo" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblCedula" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblRuc" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblPasaporte" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblNombres" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblApellidos" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblFecha" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblCorreo" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblSalario" Style="{StaticResource TextoExplicito}" />
+            <Label x:Name="lblAporteIess" Style="{StaticResource TextoExplicito}" />
+
+            <Button Text="Guardar TXT"
+                    Clicked="OnGuardarTxtClicked"
+                    Style="{StaticResource TextoBoton}"
+                    Margin="0,10,0,0" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

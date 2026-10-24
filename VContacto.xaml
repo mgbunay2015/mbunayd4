@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" Padding="20,40,20,20"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mbunayd4.VContacto"
+             Title="VContacto">
+    <ScrollView>
+    
+    
+    <VerticalStackLayout Spacing="15">
+
+        <Label Text="INGRESO DE CONTACTOS" Style="{StaticResource TextoExplicito}" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" />
+
+        <Image x:Name="imgPerfil"
+               Source="usuario.bmp"
+               HeightRequest="150"
+               WidthRequest="150"
+               Aspect="AspectFill"
+               HorizontalOptions="Center" />
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="TIPO DE CONTACTO:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Picker x:Name="pickerTipo"
+                    Title="Seleccione una opción"
+                    SelectedIndexChanged="OnTipoSeleccionado" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Cédula identidad:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Entry x:Name="txt_cedula"
+                   Placeholder="Ingresa Identificación"
+                   Keyboard="Numeric"
+                   HeightRequest="50"
+                   MaxLength="10"
+                   
+                   IsEnabled="False" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Ruc:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Entry x:Name="txt_ruc"
+                   Placeholder="Ingresa Ruc"
+                   Keyboard="Numeric"
+                   HeightRequest="50"
+                   MaxLength="13"
+                   IsEnabled="False" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Pasaporte:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Entry x:Name="txt_pasaporte"
+                   Placeholder="Ingresa Pasaporte"
+                   Keyboard="Text"
+                   HeightRequest="50"
+                   MaxLength="13"
+                   IsEnabled="False" />
+        </VerticalStackLayout>
+
+
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Nombres:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Entry x:Name="txt_nombres"
+                   Placeholder="Ingresa Nombres"
+                   Keyboard="Text"
+                   HeightRequest="50"
+                   MaxLength="13"
+                   IsEnabled="True" />
+        </VerticalStackLayout>
+
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Apelldos:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Entry x:Name="txt_apellidos"
+                   Placeholder="Ingresa Apellidos"
+                   Keyboard="Text"
+                   HeightRequest="50"
+                   MaxLength="13"
+                   IsEnabled="True" />
+        </VerticalStackLayout>
+
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Fecha:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <DatePicker x:Name="dpFechaNacimiento"
+                Format="dd/MM/yyyy"
+                HeightRequest="50"
+                /> <!-- Requires sys namespace -->
+        </VerticalStackLayout>
+
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Correo:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Entry x:Name="txt_correo"
+                   Placeholder="Ingresa Correo"
+                   Keyboard="Text"
+                   HeightRequest="50"
+                   MaxLength="150"
+                   IsEnabled="True" />
+        </VerticalStackLayout>
+
+
+
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Salario:" Style="{StaticResource TextoExplicito}" HorizontalOptions="Start" />
+            <Entry x:Name="txt_salario"
+                   Placeholder="Ingresa Salario"
+                   Keyboard="Numeric"
+                   HeightRequest="50"
+                   MaxLength="13"
+           IsEnabled="True" />
+        </VerticalStackLayout>
+
+
+
+
+
+
+        <Button Text="Guardar"
+                Clicked="Button_Clicked"
+                Style="{StaticResource TextoBoton}" />
+
+        <Button Text="Limpiar"
+                Clicked="Button_Clicked_1"
+                Style="{StaticResource TextoBoton}" />
+
+
+
+        </VerticalStackLayout>
+
+        </ScrollView>
+</ContentPage>
