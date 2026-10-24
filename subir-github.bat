@@ -1,5 +1,4 @@
 @echo off
-setlocal
 cd /d "%~dp0"
 
 where git >nul 2>&1
@@ -9,11 +8,9 @@ if errorlevel 1 (
     exit /b 1
 )
 
-git config --global user.name >nul 2>&1
+where gh >nul 2>&1
 if errorlevel 1 (
-    echo Configura tu nombre y correo de Git antes de continuar:
-    echo   git config --global user.name "Tu Nombre"
-    echo   git config --global user.email "tu-correo@ejemplo.com"
+    echo No se encontro GitHub CLI. Instala gh desde https://cli.github.com
     pause
     exit /b 1
 )
@@ -25,58 +22,46 @@ if not exist ".git" (
 
 git add -A
 git diff --cached --quiet
-if errorlevel 1 (
-    git commit -m "Carga del proyecto mbunayd4"
-    if errorlevel 1 (
-        echo No se pudo crear el commit.
-        pause
-        exit /b 1
-    )
-)
+if errorlevel 1 git commit -m "Carga del proyecto mbunayd4"
 
 git remote get-url origin >nul 2>&1
 if not errorlevel 1 goto push
 
-where gh >nul 2>&1
-if errorlevel 1 goto manual
-
 gh auth status >nul 2>&1
+if not errorlevel 1 goto crear
+
+echo.
+echo La sesion de Visual Studio no autoriza este programa.
+echo Se abrira el navegador: acepta el permiso de GitHub CLI.
+echo.
+gh auth login --hostname github.com --git-protocol https --web
 if errorlevel 1 (
-    echo Inicia sesion en GitHub.
-    gh auth login
-    if errorlevel 1 (
-        echo No se pudo iniciar sesion.
-        pause
-        exit /b 1
-    )
-)
-
-set REPO=mbunayd4
-set /p REPO=Nombre del repositorio en GitHub [%REPO%]:
-if "%REPO%"=="" set REPO=mbunayd4
-
-set VIS=publico
-set /p VIS=Repositorio publico o privado [%VIS%]:
-if /i "%VIS%"=="privado" (
-    gh repo create "%REPO%" --private --source=. --remote=origin --push
-) else (
-    gh repo create "%REPO%" --public --source=. --remote=origin --push
-)
-if errorlevel 1 (
-    echo No se pudo crear el repositorio. Si ya existe, pega su URL.
-    goto manual
-)
-goto fin
-
-:manual
-set /p URL=Pega la URL del repositorio vacio de GitHub:
-if "%URL%"=="" (
-    echo No se indico una URL.
+    echo No se completo el inicio de sesion de GitHub CLI.
     pause
     exit /b 1
 )
-git remote remove origin >nul 2>&1
-git remote add origin "%URL%"
+
+:crear
+for /f "delims=" %%i in ('gh api user -q .login') do set GHUSER=%%i
+if "%GHUSER%"=="" (
+    echo No se pudo leer el usuario de GitHub.
+    pause
+    exit /b 1
+)
+
+gh repo view %GHUSER%/mbunayd4 >nul 2>&1
+if not errorlevel 1 (
+    git remote remove origin >nul 2>&1
+    git remote add origin https://github.com/%GHUSER%/mbunayd4.git
+    goto push
+)
+
+gh repo create mbunayd4 --public --source=. --remote=origin --push
+if not errorlevel 1 goto fin
+
+echo No se pudo crear el repositorio.
+pause
+exit /b 1
 
 :push
 git branch -M main
@@ -88,6 +73,7 @@ if errorlevel 1 (
 )
 
 :fin
-echo Proyecto cargado en GitHub.
+echo.
+echo Proyecto cargado: https://github.com/%GHUSER%/mbunayd4
+echo.
 pause
-endlocal
